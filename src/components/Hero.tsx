@@ -82,7 +82,6 @@ const Hero: React.FC = () => {
 
           <TextField
             error={formik.touched.message && Boolean(formik.errors.message)}
-            helperText={formik.touched.message && formik.errors.message}
             label='Message'
             multiline
             name='message'
