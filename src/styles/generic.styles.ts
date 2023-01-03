@@ -1,7 +1,7 @@
 export const containerStyles = {
   display: 'flex',
   flexDirection: 'column',
-  height: '100vh',
+  minHeight: '100vh',
   justifyContent: 'center',
 };
 
