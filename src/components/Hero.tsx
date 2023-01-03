@@ -26,17 +26,12 @@ const Hero: React.FC = () => {
   const handleSubmit = async (values: FormDetails) => {
     setLoading(true);
 
-    let data;
+    let parsedMessage;
     if (messageType === MessageType.EMAIL) {
-      const response = await createEmail(values);
-      data = response.data;
+      parsedMessage = await createEmail(values);
     } else {
-      const response = await createText(values);
-      data = response.data
+      parsedMessage = await createText(values);
     }
-
-    const [ message ] = data.choices;
-    const parsedMessage = String(message.text).trim();
 
     setNewMessage(parsedMessage);
     setLoading(false);
@@ -65,9 +60,15 @@ const Hero: React.FC = () => {
     <>
       <Box component='form' onSubmit={formik.handleSubmit}>
         <Box sx={formContentStyles}>
-          <FormControl sx={radioControlStyles}>
+          <FormControl error={formik.touched.style && Boolean(formik.errors.style)} sx={radioControlStyles}>
             <FormLabel>Style</FormLabel>
-            <RadioGroup defaultValue='female' name='style' sx={radioGroupStyles} value={formik.values.style} onChange={formik.handleChange}>
+            <RadioGroup
+              defaultValue='female'
+              name='style'
+              sx={radioGroupStyles}
+              value={formik.values.style}
+              onChange={formik.handleChange}
+            >
               {options.map((option) => (
                 <FormControlLabel
                   key={option}
@@ -80,6 +81,8 @@ const Hero: React.FC = () => {
           </FormControl>
 
           <TextField
+            error={formik.touched.message && Boolean(formik.errors.message)}
+            helperText={formik.touched.message && formik.errors.message}
             label='Message'
             multiline
             name='message'
