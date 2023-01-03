@@ -9,7 +9,7 @@ const App: React.FC = () => {
     <Container maxWidth='md' sx={{ justifyContent: 'center' }}>
       <Header />
       <Hero />
-      <Footer />
+      {/* <Footer /> */}
     </Container>
   );
 };
