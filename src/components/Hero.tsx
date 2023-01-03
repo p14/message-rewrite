@@ -1,13 +1,14 @@
 import React from 'react';
 import { LoadingButton } from '@mui/lab';
+import { SwitchAccessShortcut } from '@mui/icons-material';
 import { Box, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { createEmail, createText } from '../services/ai.service';
+import { heroContainerStyles } from '../styles/generic.styles';
 import { buttonWrapperStyles, formContentStyles, messageStyles, radioControlStyles, radioGroupStyles } from '../styles/hero.styles';
 import { FormDetails, MessageType } from '../typings/hero.typings';
 import Message from './Message';
-import { SwitchAccessShortcut } from '@mui/icons-material';
 
 const Hero: React.FC = () => {
   const control = <Radio />;
@@ -57,7 +58,7 @@ const Hero: React.FC = () => {
   });
 
   return (
-    <>
+    <Box sx={heroContainerStyles}>
       <Box component='form' onSubmit={formik.handleSubmit}>
         <Box sx={formContentStyles}>
           <FormControl error={formik.touched.style && Boolean(formik.errors.style)} sx={radioControlStyles}>
@@ -107,7 +108,7 @@ const Hero: React.FC = () => {
       {newMessage &&
         <Message message={newMessage} />
       }
-    </>
+    </Box>
   );
 };
 
