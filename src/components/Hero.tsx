@@ -4,7 +4,7 @@ import { SwitchAccessShortcut } from '@mui/icons-material';
 import { Box, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { createEmail, createText } from '../services/ai.service';
+import { createMessage } from '../services/ai.service';
 import { heroContainerStyles } from '../styles/generic.styles';
 import { buttonWrapperStyles, formContentStyles, messageStyles, radioControlStyles, radioGroupStyles } from '../styles/hero.styles';
 import { FormDetails, MessageType } from '../typings/hero.typings';
@@ -26,14 +26,7 @@ const Hero: React.FC = () => {
 
   const handleSubmit = async (values: FormDetails) => {
     setLoading(true);
-
-    let parsedMessage;
-    if (messageType === MessageType.EMAIL) {
-      parsedMessage = await createEmail(values);
-    } else {
-      parsedMessage = await createText(values);
-    }
-
+    const parsedMessage = await createMessage({ details: values, messageType: messageType });
     setNewMessage(parsedMessage);
     setLoading(false);
   };

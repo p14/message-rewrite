@@ -20,3 +20,10 @@ export const descriptionStyles = {
   margin: 2,
   textAlign: 'center',
 };
+
+export const footerStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  margin: 2,
+  textAlign: 'center',
+};
