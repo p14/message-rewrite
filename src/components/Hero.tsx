@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoadingButton } from '@mui/lab';
 import { SwitchAccessShortcut } from '@mui/icons-material';
-import { Box, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, TextField } from '@mui/material';
+import { Box, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, TextField, Tooltip } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { createMessage } from '../services/ai.service';
@@ -30,12 +30,12 @@ const Hero: React.FC = () => {
     setNewMessage(parsedMessage);
     setLoading(false);
   };
-  
-  const handleSwitchType = () => {
+
+  const readMessageTypeToggle = () => {
     if (messageType === MessageType.EMAIL) {
-      setMessageType(MessageType.TEXT);
+      return MessageType.TEXT;
     } else {
-      setMessageType(MessageType.EMAIL);
+      return MessageType.EMAIL;
     }
   };
 
@@ -88,9 +88,11 @@ const Hero: React.FC = () => {
         </Box>
 
         <Box sx={buttonWrapperStyles}>
-          <IconButton onClick={() => handleSwitchType()}>
-            <SwitchAccessShortcut />
-          </IconButton>
+          <Tooltip title={`Switch to ${readMessageTypeToggle()}`}>
+            <IconButton onClick={() => setMessageType(readMessageTypeToggle())}>
+              <SwitchAccessShortcut />
+            </IconButton>
+          </Tooltip>
           &nbsp;
           <LoadingButton loading={loading} sx={{ width: '175px' }} type='submit' variant='contained'>
             Rewrite as {messageType === MessageType.EMAIL ? MessageType.EMAIL : MessageType.TEXT}
